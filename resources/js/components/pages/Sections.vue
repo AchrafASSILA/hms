@@ -72,6 +72,7 @@
                         <div class="form-group">
                             <label for="inputTitle">Title</label>
                             <input
+                                v-model="section.label"
                                 type="email"
                                 class="form-control"
                                 id="inputTitle"
@@ -86,6 +87,7 @@
                         <div class="form-group">
                             <label for="inputDescription">Description</label>
                             <textarea
+                                v-model="section.description"
                                 class="form-control"
                                 id="inputDescription"
                                 aria-describedby="DescriptionHelp"
@@ -98,6 +100,7 @@
                                 type="file"
                                 class="form-control-file"
                                 id="inputImage"
+                                @change="onImageChange"
                             />
                         </div>
 
@@ -141,6 +144,13 @@ import store from "../../store";
 import DefaultLayout from "../admin/DefaultLayout.vue";
 let sections = ref([]);
 
+let section = {
+    label: null,
+    description: null,
+    active: null,
+    file: null,
+};
+
 onMounted(async () => {
     await store
         .dispatch("getSections")
@@ -151,12 +161,28 @@ onMounted(async () => {
             console.log(err);
         });
 });
-function getSections() {}
-function saveSection() {
-    console.log("hello");
+async function getSections() {
+    await store
+        .dispatch("getSections")
+        .then(() => {
+            sections.value = store.state.sections;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
-function deleteSection(id) {
-    store
+async function saveSection() {
+    await store
+        .dispatch("saveSection", this.section)
+        .then(() => {
+            getSections();
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+async function deleteSection(id) {
+    await store
         .dispatch("deleteSection", id)
         .then(() => {
             swal.fire("success", "section delete with succes");
@@ -172,6 +198,9 @@ function deleteSection(id) {
         .catch((err) => {
             console.log(err);
         });
+}
+function onImageChange(e) {
+    section.file = e.target.files[0];
 }
 </script>
 

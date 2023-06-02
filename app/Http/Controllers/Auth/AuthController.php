@@ -7,20 +7,21 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $fields = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed',
+        $this->validate($request, [
+            'name' => 'required|min:5|max:100',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|confirmed',
         ]);
         $user = User::create([
-            'name' => $fields['name'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
         $token =  $user->createToken('token')->plainTextToken;
         return response([
@@ -34,11 +35,11 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string|',
         ]);
-        // check email 
+        // check email
         $user = User::where('email', $fields['email'])->first();
-        // check password 
+        // check password
         if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response(['msg' => 'wrong credentiels'], 200);
+            return response(['msg' => 'wrong credentiels'], 401);
         }
         $token =  $user->createToken('token')->plainTextToken;
         return response([

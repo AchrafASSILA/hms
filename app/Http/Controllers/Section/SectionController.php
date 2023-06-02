@@ -43,7 +43,17 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        print_r($request);
+        exit;
+        $this->validate($request, [
+            'label' => 'required|max:100',
+        ]);
+        $section = Section::create([
+            'Label' => $request->name,
+            'Description' => $request->email,
+
+        ]);
+        return response(['msg' => 'section save with succes ' . $section->Label], 200);
     }
 
     /**

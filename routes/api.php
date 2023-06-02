@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
     Route::resource('sections', SectionController::class);
+    Route::post('saveSection', [SectionController::class, 'store']);
 });
 
 

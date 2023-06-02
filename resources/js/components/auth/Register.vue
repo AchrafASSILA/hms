@@ -60,6 +60,27 @@
                                                 "
                                             />
                                         </div>
+                                        <div v-if="errors">
+                                            <div
+                                                v-for="(error, index) in errors"
+                                                v-bind:key="index"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert"
+                                            >
+                                                <strong>{{ error }}</strong>
+
+                                                <button
+                                                    type="button"
+                                                    class="close"
+                                                    data-dismiss="alert"
+                                                    aria-label="Close"
+                                                >
+                                                    <span aria-hidden="true"
+                                                        >&times;</span
+                                                    >
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div
                                                 class="custom-control custom-checkbox small"
@@ -112,6 +133,7 @@ const user = {
     password: null,
     password_comfirmation: null,
 };
+const errors = store.state.errors;
 const tokenUser = store.state.token;
 function register() {
     store

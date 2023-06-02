@@ -6,6 +6,7 @@ const store = createStore({
         user: null,
         token: sessionStorage.getItem("TOKEN"),
         sections: [],
+        errors: [],
     },
     getters: {},
     actions: {
@@ -25,6 +26,25 @@ const store = createStore({
                     this.commit("setUser", res);
                 })
                 .catch((err) => {
+                    this.commit("setErrors", err);
+                    console.log(err);
+                });
+        },
+        async saveSection({ dispatch }, section) {
+            console.log(section);
+            const formData = new FormData();
+            formData.append("label", section.label);
+            formData.append("description", section.description);
+            formData.append("icon", section.file);
+
+            await axiosClient
+                .post("/saveSection", formData)
+                .then((res) => {
+                    console.log("work", res);
+                    this.commit("setSections", res);
+                })
+                .catch((err) => {
+                    this.commit("setErrors", err);
                     console.log(err);
                 });
         },
@@ -38,6 +58,7 @@ const store = createStore({
                     this.commit("setUser", res);
                 })
                 .catch((err) => {
+                    this.commit("setErrors", err);
                     console.log(err);
                 });
         },
@@ -86,6 +107,9 @@ const store = createStore({
             state.user = userData.data.user;
             state.token = userData.data.token;
             sessionStorage.setItem("TOKEN", state.token);
+        },
+        setErrors: (state, errData) => {
+            state.errors.push(errData.response.data.msg);
         },
         setCurrentUser: (state, userData) => {
             state.user = userData.data;

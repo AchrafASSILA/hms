@@ -40,6 +40,28 @@
                                                 v-model="user.password"
                                             />
                                         </div>
+
+                                        <div v-if="errors">
+                                            <div
+                                                v-for="(error, index) in errors"
+                                                v-bind:key="index"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert"
+                                            >
+                                                <strong>{{ error }}</strong>
+
+                                                <button
+                                                    type="button"
+                                                    class="close"
+                                                    data-dismiss="alert"
+                                                    aria-label="Close"
+                                                >
+                                                    <span aria-hidden="true"
+                                                        >&times;</span
+                                                    >
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <div
                                                 class="custom-control custom-checkbox small"
@@ -112,6 +134,7 @@ const user = {
     email: null,
     password: null,
 };
+const errors = store.state.errors;
 function login() {
     store
         .dispatch("login", user)
@@ -124,4 +147,13 @@ function login() {
 }
 </script>
 
-<style></style>
+<style>
+.bg-login-image {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.alert {
+    border-radius: 60px;
+}
+</style>
