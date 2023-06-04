@@ -309,29 +309,33 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import axiosClient from "../../axios";
 import store from "../../store";
 
 const router = useRouter();
-const user = ref({ name: "" });
+const user = ref({});
+const loaded = ref(false);
 
 onMounted(() => {
     getUser();
 });
 
-function getUser() {
-    store
-        .dispatch("getUser")
-        .then(() => {
-            user.value = store.state.user;
+async function getUser() {
+    await axiosClient("/user")
+        .then((res) => {
+            user.value = res.data;
         })
         .catch((err) => {
             console.log(err);
         });
+    loaded.value = true;
 }
-function logout() {
-    this.store
-        .dispatch("logout")
-        .then(() => {
+async function logout() {
+    await axiosClient
+        .post("/logout")
+        .then((res) => {
+            sessionStorage.removeItem("USER");
+            sessionStorage.removeItem("TOKEN");
             router.push({ name: "Login" });
         })
         .catch((err) => {

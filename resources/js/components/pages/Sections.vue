@@ -2,7 +2,7 @@
     <DefaultLayout
         ><h3>Sections</h3>
 
-        <div class="text-right">
+        <div class="text-right mb-2">
             <button
                 class="btn btn-primary"
                 type="button"
@@ -13,11 +13,11 @@
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
-        <div class="d-flex justify-space-evenly align-center gap-10">
+        <div class="fx-br align-center gap-10" v-if="loaded">
             <div
                 v-for="section in sections"
                 :key="section.id"
-                class="card col-lg-3 col-md-6 col-s-12 p-0"
+                class="card col-lg-2 col-md-6 col-s-12 p-0 mr-2 mb-5"
             >
                 <img
                     class="card-img-top"
@@ -43,7 +43,9 @@
                 </div>
             </div>
         </div>
-
+        <div v-else>
+            <span>loading...</span>
+        </div>
         <!-- Modal -->
         <div
             class="modal fade"
@@ -109,10 +111,30 @@
                                 type="checkbox"
                                 class="form-check-input"
                                 id="activeSection"
+                                v-model="section.active"
                             />
                             <label class="form-check-label" for="activeSection"
                                 >Active</label
                             >
+                        </div>
+                    </div>
+                    <div v-if="errors">
+                        <div
+                            v-for="(error, index) in errors"
+                            v-bind:key="index"
+                            class="alert alert-danger alert-dismissible fade show"
+                            role="alert"
+                        >
+                            <strong>{{ error }}</strong>
+
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -142,63 +164,85 @@ import { onMounted, ref } from "vue";
 import axiosClient from "../../axios";
 import store from "../../store";
 import DefaultLayout from "../admin/DefaultLayout.vue";
+
 let sections = ref([]);
+let loaded = ref(false);
+let errors = ref([]);
 
 let section = {
-    label: null,
-    description: null,
-    active: null,
-    file: null,
+    label: "",
+    description: "",
+    active: "",
+    file: "",
 };
 
 onMounted(async () => {
-    await store
-        .dispatch("getSections")
-        .then(() => {
-            sections.value = store.state.sections;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    getSections();
 });
 async function getSections() {
-    await store
-        .dispatch("getSections")
-        .then(() => {
-            sections.value = store.state.sections;
+    await axiosClient("/sections")
+        .then((res) => {
+            sections.value = res.data.sections;
+            loaded.value = true;
         })
         .catch((err) => {
             console.log(err);
         });
 }
 async function saveSection() {
-    await store
-        .dispatch("saveSection", this.section)
-        .then(() => {
+    const config = {
+        headers: { "content-type": "multipart/form-data" },
+    };
+    errors.value = [];
+    const formData = new FormData();
+    formData.append("label", section.label);
+    formData.append("description", section.description);
+    formData.append("active", section.active);
+    formData.append("icon", section.file);
+    await axiosClient
+        .post("/sections", formData, config)
+        .then((res) => {
+            $("#addSection").modal("toggle");
+            swal.fire("success", `section ${section.label} save with succes`);
             getSections();
         })
         .catch((err) => {
+            errors.value = err.response.data;
             console.log(err);
         });
 }
+
 async function deleteSection(id) {
-    await store
-        .dispatch("deleteSection", id)
-        .then(() => {
-            swal.fire("success", "section delete with succes");
-            store
-                .dispatch("getSections")
-                .then(() => {
-                    sections.value = store.state.sections;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    swal.fire({
+        title: "Are you sure ?",
+        text: "Delete Section !",
+        type: "question",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+    }).then(
+        async function (result) {
+            if (result.value) {
+                await axiosClient
+                    .delete("/sections/" + id)
+                    .then((res) => {
+                        swal.fire("success", "section delete with succes");
+                        getSections();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        }.bind(this)
+    );
 }
+
+function initializeForm() {
+    section.label = null;
+    section.description = null;
+    section.active = null;
+    section.file = null;
+}
+
 function onImageChange(e) {
     section.file = e.target.files[0];
 }
@@ -214,5 +258,14 @@ function onImageChange(e) {
 }
 .btn {
     color: white;
+}
+.card-img-top {
+    height: 210px;
+    object-fit: contain;
+}
+.fx-br {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 </style>

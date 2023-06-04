@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Section;
 use App\Http\Controllers\Controller;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 class SectionController extends Controller
 {
@@ -43,17 +43,34 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request);
-        exit;
-        $this->validate($request, [
+        // $this->validate($request, [
+        //     'label' => 'required|max:100',
+        // ]);
+        // return ($request);
+        $validator = Validator::make($request->all(), [
             'label' => 'required|max:100',
         ]);
-        $section = Section::create([
-            'Label' => $request->name,
-            'Description' => $request->email,
 
-        ]);
-        return response(['msg' => 'section save with succes ' . $section->Label], 200);
+        if ($validator->fails()) {
+            return response($validator->errors(), 422);
+        }
+        // Validator::make($request->all(), [
+        //     'label' => 'required|max:100',
+        // ]);
+        // $section = Section::create([
+        //     'Label' => $request->label,
+        //     'Description' => $request->description,
+        // ]);
+        // if ($request->hasFile('icon')) {
+        //     $image = $request->file('icon');
+        //     $file_name = $image->getClientOriginalName();
+        //     $section->Icon  = $file_name;
+        //     $section->save();
+        //     // move pic
+        //     $imageName = $request->icon->getClientOriginalName();
+        //     $request->icon->move(public_path('assets/images/sections/'), $imageName);
+        // }
+        // return response(['msg' => 'section save with succes ' . $section->Label], 200);
     }
 
     /**

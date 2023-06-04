@@ -48,9 +48,9 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+// if (to.meta.requiresAuth && !store.state.token) {
 router.beforeEach((to, from, next) => {
-    // if (to.meta.requiresAuth && !sessionStorage.getItem("TOKEN")) {
-    if (to.meta.requiresAuth && !store.state.token) {
+    if (to.meta.requiresAuth && !sessionStorage.getItem("TOKEN")) {
         next({ name: "Login" });
     } else if (
         store.state.token &&

@@ -83,7 +83,7 @@
                                         >
                                             Login
                                         </button>
-                                        <!-- <a
+                                        <a
                                             href="index.html"
                                             class="btn btn-google btn-user btn-block"
                                         >
@@ -98,7 +98,7 @@
                                                 class="fab fa-facebook-f fa-fw"
                                             ></i>
                                             Login with Facebook
-                                        </a> -->
+                                        </a>
                                     </form>
                                     <hr />
                                     <div class="text-center">
@@ -128,21 +128,29 @@
 <script setup>
 import store from "../../store";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+import axiosClient from "../../axios";
 
 const router = useRouter();
-const user = {
+const user = ref({
     email: null,
     password: null,
-};
-const errors = store.state.errors;
-function login() {
-    store
-        .dispatch("login", user)
-        .then(() => {
+});
+const errors = ref([]);
+async function login() {
+    const formData = new FormData();
+    formData.append("email", user.value.email);
+    formData.append("password", user.value.password);
+    errors.value = [];
+    await axiosClient
+        .post("/login", formData)
+        .then((res) => {
+            sessionStorage.setItem("USER", res.data.user);
+            sessionStorage.setItem("TOKEN", res.data.token);
             router.push({ name: "Dashboard" });
         })
         .catch((err) => {
-            console.log(err);
+            errors.value.push(err.response.data.msg);
         });
 }
 </script>

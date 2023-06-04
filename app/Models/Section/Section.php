@@ -12,8 +12,8 @@ class Section extends Model
     protected $fillable = ['Label', 'Description', 'Icon'];
     public function getIcon()
     {
-        if (file_exists(asset('assets/images/sections/') . $this->Icon)) {
-            return asset('assets/images/sections/') . $this->Icon;
+        if (file_exists(public_path('assets/images/sections/') . $this->Icon)) {
+            return asset('assets/images/sections/' . $this->Icon);
         }
         return asset('assets/images/sections/default.png');
     }
