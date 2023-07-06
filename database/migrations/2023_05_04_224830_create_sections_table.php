@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Label');
             $table->text('Description')->nullable();
+            $table->boolean('Active')->default(1);
             $table->string('Icon', 100)->nullable();
             $table->timestamps();
         });

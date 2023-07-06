@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center row-hms">
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
@@ -128,21 +128,25 @@
 <script setup>
 import store from "../../store";
 import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 const router = useRouter();
 const user = {
     email: null,
     password: null,
 };
-const errors = store.state.errors;
-function login() {
-    store
+
+let errors = ref([]);
+async function login() {
+    await store
         .dispatch("login", user)
         .then(() => {
             router.push({ name: "Dashboard" });
         })
         .catch((err) => {
-            console.log(err);
+            errors.value = [];
+
+            errors.value.push(err.response.data.msg);
         });
 }
 </script>
@@ -155,5 +159,9 @@ function login() {
 }
 .alert {
     border-radius: 60px;
+}
+.row-hms {
+    height: 100vh;
+    align-items: center;
 }
 </style>

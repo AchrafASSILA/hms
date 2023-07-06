@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class SectionController extends Controller
 {
@@ -21,6 +23,7 @@ class SectionController extends Controller
             $section_ = [
                 'id' => $section->id,
                 'label' => $section->Label,
+                'active' => $section->Active,
                 'description' => $section->Description,
                 'icon' => $section->getIcon()
             ];
@@ -43,17 +46,37 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request);
-        exit;
-        $this->validate($request, [
-            'label' => 'required|max:100',
-        ]);
-        $section = Section::create([
-            'Label' => $request->name,
-            'Description' => $request->email,
+        try {
+            //code...
+            $validation = Validator::make($request->all(), [
+                'label' => 'required|max:100|string',
+                'description' => 'required|max:100|string',
 
-        ]);
-        return response(['msg' => 'section save with succes ' . $section->Label], 200);
+            ]);
+            if ($validation->messages()->all()) {
+                return response(['msg' => $validation->messages()->all()], 403);
+            }
+            $section = Section::create([
+                'Label' => $request->label,
+                'Description' => $request->description,
+                'Active' => $request->active == "true" ? 1 : 0,
+
+            ]);
+            if ($request->hasFile('icon')) {
+                $image = $request->file('icon');
+                $file_name = $image->getClientOriginalName();
+                // move pic
+                $imageName =   date('Y_m_d') . '_' . time() . '.png';
+                $section->Icon = $imageName;
+                $request->icon->move(public_path('/assets/images/sections'), $imageName);
+
+                $section->save();
+            }
+            return response(['msg' => 'section save with succes ' . $section->Label], 200);
+        } catch (\Exception $e) {
+            //throw $e;
+            return response(['msg' => $e->getMessage()], 403);
+        }
     }
 
     /**
@@ -77,7 +100,48 @@ class SectionController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        //
+    }
+    public function updateSection(Request $request)
+    {
+        try {
+            $validation = Validator::make($request->all(), [
+                'label' => 'required|max:100|string',
+                'description' => 'required|max:100|string',
+
+            ]);
+            if ($validation->messages()->all()) {
+                return response(['msg' => $validation->messages()->all()], 403);
+            }
+            //code...
+            $section = Section::find($request->section_id);
+            $section->update([
+                'Label' => $request->label,
+                'Description' => $request->description,
+                'Active' => $request->active == "true" ? 1 : 0,
+            ]);
+            if ($request->hasFile('icon')) {
+                $section->deleteImage();
+                $image = $request->file('icon');
+                $file_name = $image->getClientOriginalName();
+                // move pic
+                $imageName =   date('Y_m_d') . '_' . time() . '.png';
+                $section->Icon = $imageName;
+                $request->icon->move(public_path('/assets/images/sections'), $imageName);
+
+                $section->save();
+            }
+            return response(['msg' => 'section update with succes ' . $section->Label], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], 403);
+        }
+    }
+
+    /**
+     * generate excel file.
+     */
+    public function generateExcelSections()
+    {
+        return 'hello excel';
     }
 
     /**
@@ -85,10 +149,16 @@ class SectionController extends Controller
      */
     public function destroy(int $id)
     {
-        $data = array();
-        $data['msg'] = 'deleted succesfully';
-        $section = Section::where(['id' => $id])->first();
-        $section->delete();
-        return response($data, 200);
+        try {
+            //code...
+            $data = array();
+            $data['msg'] = 'deleted succesfully';
+            $section = Section::where(['id' => $id])->first();
+            $section->deleteImage();
+            $section->delete();
+            return response($data, 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], 200);
+        }
     }
 }

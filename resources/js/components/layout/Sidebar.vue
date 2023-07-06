@@ -1,7 +1,7 @@
 <template>
     <!-- Sidebar -->
     <ul
-        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        class="navbar-nav sidebar sidebar-dark accordion bg-primary-blue"
         id="accordionSidebar"
     >
         <!-- Sidebar - Brand -->
@@ -10,37 +10,36 @@
             :to="{ name: 'Dashboard' }"
         >
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+                <img style="width: 45px" src="/assets/img/healthy.png" alt="" />
             </div>
-            <div class="sidebar-brand-text mx-3">HMS</div>
+            <div class="sidebar-brand-text mx-3" style="white-space: nowrap">
+                FLimen Health
+            </div>
         </router-link>
 
         <!-- Divider -->
-        <hr class="sidebar-divider my-0" />
+        <!-- <hr class="sidebar-divider my-0" /> -->
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Dashboard' }">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fa fa-bar-chart mr-1"></i>
                 <span>Dashboard</span></router-link
             >
         </li>
 
-        <hr class="sidebar-divider" />
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Home' }">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fa fa-home mr-1"></i>
                 <span>Home</span></router-link
             >
         </li>
         <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Sections' }">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fa fa-stethoscope mr-1" aria-hidden="true"></i>
                 <span>Sections</span></router-link
             >
         </li>
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
 
         <!-- Heading -->
         <div class="sidebar-heading">Interface</div>
@@ -55,7 +54,7 @@
                 aria-expanded="true"
                 aria-controls="collapseTwo"
             >
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-cog mr-1"></i>
                 <span>Components</span>
             </a>
             <div
@@ -82,7 +81,7 @@
                 aria-expanded="true"
                 aria-controls="collapseUtilities"
             >
-                <i class="fas fa-fw fa-wrench"></i>
+                <i class="fas fa-fw fa-wrench mr-1"></i>
                 <span>Utilities</span>
             </a>
             <div
@@ -109,9 +108,6 @@
             </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider" />
-
         <!-- Heading -->
         <div class="sidebar-heading">Addons</div>
 
@@ -125,7 +121,7 @@
                 aria-expanded="true"
                 aria-controls="collapsePages"
             >
-                <i class="fas fa-fw fa-folder"></i>
+                <i class="fas fa-fw fa-folder mr-1"></i>
                 <span>Pages</span>
             </a>
             <div
@@ -152,7 +148,7 @@
         <!-- Nav Item - Charts -->
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-fw fa-chart-area mr-1"></i>
                 <span>Charts</span></a
             >
         </li>
@@ -160,16 +156,13 @@
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
+                <i class="fas fa-fw fa-table mr-1"></i>
                 <span>Tables</span></a
             >
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block" />
-
         <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
+        <div class="text-center d-none d-md-inline" v-if="false">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
     </ul>

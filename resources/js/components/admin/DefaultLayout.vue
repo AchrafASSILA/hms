@@ -20,6 +20,9 @@
                 <div class="container-fluid">
                     <slot />
                 </div>
+                <div v-show="false">
+                    <loader></loader>
+                </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- start Footer  -->
@@ -31,14 +34,16 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { ref, onMounted } from "vue";
 import store from "../../store";
 import Sidebar from "../layout/Sidebar.vue";
 import Footer from "../layout/Footer.vue";
 import Navbar from "../layout/Navbar.vue";
-
+import Loader from "../ui/Loader.vue";
 const router = useRouter();
-const user = store.state.user;
+let user = null;
 const token = store.state.token;
+let loaded = ref(false);
 
 function logout() {
     this.store
@@ -50,6 +55,30 @@ function logout() {
             console.log(err);
         });
 }
+async function getUser() {
+    await store
+        .dispatch("getUser")
+        .then(() => {
+            user = store.state.user;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    loaded.value = true;
+}
+onMounted(() => {
+    getUser();
+});
 </script>
 
-<style></style>
+<style scoped>
+svg {
+    width: 45%;
+}
+.center-svg {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

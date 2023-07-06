@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center row-hms">
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
@@ -147,4 +147,9 @@ function register() {
 }
 </script>
 
-<style></style>
+<style>
+.row-hms {
+    height: 100vh;
+    align-items: center;
+}
+</style>
