@@ -75,9 +75,7 @@ const store = createStore({
             });
         },
         async generateExcelSections({ dispatch }) {
-            await axiosClient
-                .post("/generate-excel-sections")
-                .then((res) => {});
+            await axiosClient.get("/generate-excel-sections").then((res) => {});
         },
         async logout({ dispatch }) {
             await axiosClient

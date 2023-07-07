@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('sections', SectionController::class);
     // Route::post('saveSection', [SectionController::class, 'store']);
     Route::post('update-section', [SectionController::class, 'updateSection']);
-    Route::post('generate-excel-sections', [SectionController::class, 'generateExcelSections']);
+    Route::get('generate-excel-sections', [SectionController::class, 'generateExcelSections']);
 });
 
 

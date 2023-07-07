@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Section;
 
+use App\Exports\SectionExport;
 use App\Http\Controllers\Controller;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        return 'hello';
+        //
     }
 
     /**
@@ -141,7 +142,9 @@ class SectionController extends Controller
      */
     public function generateExcelSections()
     {
-        return 'hello excel';
+
+        $sections = Section::all();
+        return (new SectionExport($sections))->download("sections.xlsx");
     }
 
     /**

@@ -15,7 +15,8 @@
                 >
                     <i class="fa-solid fa-plus"></i>
                 </button>
-                <button
+                <!-- v-if="false" -->
+                <a
                     class="btn btn-success p-0"
                     @click="generateExcel()"
                     type="button"
@@ -25,7 +26,18 @@
                         style="width: 36px"
                         src="/assets/img/icons/worksheet.png"
                     />
-                </button>
+                </a>
+                <!-- <a
+                    href="/api/generate-excel-sections"
+                    class="btn btn-success p-0"
+                    type="button"
+                    style="color: white"
+                >
+                    <img
+                        style="width: 36px"
+                        src="/assets/img/icons/worksheet.png"
+                    />
+                </a> -->
             </div>
         </div>
         <div v-if="loaded">
