@@ -4,22 +4,23 @@ namespace App\Exports;
 
 use App\Models\Section\Section;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Excel;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Trig\Secant;
 
-class SectionExport implements FromQuery
+use Illuminate\Contracts\View\View;
+
+class SectionExport implements FromView
 {
 
     use Exportable;
 
-    protected $sections;
-    public function __construct($sections)
+    public function view(): View
     {
-        $this->$sections = $sections;
-    }
-    public function query()
-    {
-        // return Section::query()->whereKey($this->sections);
-        return Section::query();
-        // return Section::all();
+        return view('exports.sections', [
+            'sections' => Section::all()
+        ]);
     }
 }

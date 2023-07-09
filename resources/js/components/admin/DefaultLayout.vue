@@ -1,16 +1,10 @@
 <template>
-    <!-- <router-link to="/admin/home">home</router-link><br />
-    <router-link to="/admin/dashboard">dahboard</router-link>
-    <button @click="changeRoute()">dahboard btn</button>
-    <p>{{ user }}</p>
-    <p>{{ token }}</p>
-    <button @click.prevent="logout()">logout</button> -->
     <div id="wrapper">
         <!-- start side bar  -->
         <sidebar></sidebar>
         <!-- end side bar  -->
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" class="d-flex flex-column content-wr">
             <!-- Main Content -->
             <div id="content">
                 <!-- start nav bar  -->
@@ -45,16 +39,6 @@ let user = null;
 const token = store.state.token;
 let loaded = ref(false);
 
-function logout() {
-    this.store
-        .dispatch("logout")
-        .then(() => {
-            router.push({ name: "Login" });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
 async function getUser() {
     await store
         .dispatch("getUser")
@@ -80,5 +64,9 @@ svg {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.content-wr {
+    height: 100vh;
+    padding-bottom: 15px;
 }
 </style>

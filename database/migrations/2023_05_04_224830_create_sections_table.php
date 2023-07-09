@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('Label');
+            $table->string('Slug');
             $table->text('Description')->nullable();
             $table->boolean('Active')->default(1);
             $table->string('Icon', 100)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

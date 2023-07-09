@@ -15,11 +15,10 @@
                 >
                     <i class="fa-solid fa-plus"></i>
                 </button>
-                <!-- v-if="false" -->
                 <a
                     class="btn btn-success p-0"
-                    @click="generateExcel()"
                     type="button"
+                    href="/api/generate-excel-sections"
                     style="color: white"
                 >
                     <img
@@ -29,14 +28,11 @@
                 </a>
                 <!-- <a
                     href="/api/generate-excel-sections"
-                    class="btn btn-success p-0"
+                    class="btn btn-success ml-1"
                     type="button"
                     style="color: white"
                 >
-                    <img
-                        style="width: 36px"
-                        src="/assets/img/icons/worksheet.png"
-                    />
+                    archived sections
                 </a> -->
             </div>
         </div>

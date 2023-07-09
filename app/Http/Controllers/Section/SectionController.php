@@ -6,9 +6,8 @@ use App\Exports\SectionExport;
 use App\Http\Controllers\Controller;
 use App\Models\Section\Section;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class SectionController extends Controller
 {
@@ -50,7 +49,7 @@ class SectionController extends Controller
         try {
             //code...
             $validation = Validator::make($request->all(), [
-                'label' => 'required|max:100|string',
+                'label' => 'required|max:100|string|unique:sections',
                 'description' => 'required|max:100|string',
 
             ]);
@@ -59,6 +58,7 @@ class SectionController extends Controller
             }
             $section = Section::create([
                 'Label' => $request->label,
+                'Slug' => Str::slug($request->label),
                 'Description' => $request->description,
                 'Active' => $request->active == "true" ? 1 : 0,
 
@@ -105,18 +105,18 @@ class SectionController extends Controller
     public function updateSection(Request $request)
     {
         try {
+            $section = Section::find($request->section_id);
             $validation = Validator::make($request->all(), [
-                'label' => 'required|max:100|string',
+                'label' => 'required|max:100|string|unique:sections,Label,' . $section->id,
                 'description' => 'required|max:100|string',
-
             ]);
             if ($validation->messages()->all()) {
                 return response(['msg' => $validation->messages()->all()], 403);
             }
             //code...
-            $section = Section::find($request->section_id);
             $section->update([
                 'Label' => $request->label,
+                'Slug' => Str::slug($request->label),
                 'Description' => $request->description,
                 'Active' => $request->active == "true" ? 1 : 0,
             ]);
@@ -142,9 +142,32 @@ class SectionController extends Controller
      */
     public function generateExcelSections()
     {
-
-        $sections = Section::all();
-        return (new SectionExport($sections))->download("sections.xlsx");
+        return (new SectionExport)->download('sections.xlsx');
+    }
+    /**
+     * get deleted sections.
+     */
+    public function deletedSections()
+    {
+        try {
+            //code...
+            $sections = [];
+            $data = [];
+            foreach (Section::withTrashed()->get() as $section) {
+                # code...
+                $sections[] = [
+                    'id' => $section->id,
+                    'label' => $section->Label,
+                    'active' => $section->Active,
+                    'description' => $section->Description,
+                    'icon' => $section->getIcon()
+                ];
+            }
+            $data['sections'] = $sections;
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+        }
     }
 
     /**
