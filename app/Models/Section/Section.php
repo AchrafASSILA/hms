@@ -18,6 +18,7 @@ class Section extends Model
         }
         return asset('/assets/images/sections/default.png');
     }
+
     public function deleteImage()
     {
         $path = public_path("/assets/images/sections/" . $this->Icon);

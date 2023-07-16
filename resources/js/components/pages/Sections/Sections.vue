@@ -10,6 +10,7 @@
                     @click="initialize()"
                     type="button"
                     data-toggle="modal"
+                    title="add section"
                     data-target="#addSection"
                     style="color: white"
                 >
@@ -19,6 +20,7 @@
                     class="btn btn-success p-0"
                     type="button"
                     href="/api/generate-excel-sections"
+                    title="export excel"
                     style="color: white"
                 >
                     <img
@@ -26,14 +28,15 @@
                         src="/assets/img/icons/worksheet.png"
                     />
                 </a>
-                <!-- <a
-                    href="/api/generate-excel-sections"
-                    class="btn btn-success ml-1"
+                <router-link
+                    :to="{ name: 'ArchivedSections' }"
+                    class="btn btn-danger ml-1"
                     type="button"
                     style="color: white"
+                    title="archived sections"
                 >
-                    archived sections
-                </a> -->
+                    <i class="fa-solid fa-trash"></i>
+                </router-link>
             </div>
         </div>
         <div v-if="loaded">
@@ -274,10 +277,10 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axiosClient from "../../axios";
-import store from "../../store";
-import DefaultLayout from "../admin/DefaultLayout.vue";
-import Loader from "../ui/Loader.vue";
+import axiosClient from "../../../axios";
+import store from "../../../store";
+import DefaultLayout from "../../admin/DefaultLayout.vue";
+import Loader from "../../ui/Loader.vue";
 let sections = ref([]);
 let loaded = ref(false);
 

@@ -34,6 +34,27 @@ class SectionController extends Controller
     }
 
     /**
+     * get trached sections.
+     */
+    public function getTrachedSections()
+    {
+        $sections = [];
+        $data = [];
+        foreach (Section::onlyTrashed()->get() as $section) {
+            # code...
+            $section_ = [
+                'id' => $section->id,
+                'label' => $section->Label,
+                'active' => $section->Active,
+                'description' => $section->Description,
+                'icon' => $section->getIcon()
+            ];
+            array_push($sections, $section_);
+        }
+        $data['sections'] = $sections;
+        return response($data, 200);
+    }
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -79,7 +100,20 @@ class SectionController extends Controller
             return response(['msg' => $e->getMessage()], 403);
         }
     }
-
+    /**
+     * restore the archived section.
+     */
+    public function restoreSection(Request $request, int $id)
+    {
+        try {
+            //code...
+            $section = Section::withTrashed()->find($id);
+            $section->restore();
+            return response(['msg' => 'section restore succefully ' . $section->Label], 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], 403);
+        }
+    }
     /**
      * Display the specified resource.
      */
@@ -180,8 +214,25 @@ class SectionController extends Controller
             $data = array();
             $data['msg'] = 'deleted succesfully';
             $section = Section::where(['id' => $id])->first();
-            $section->deleteImage();
+            // $section->deleteImage();
             $section->delete();
+            return response($data, 200);
+        } catch (\Exception $e) {
+            return response(['msg' => $e->getMessage()], 200);
+        }
+    }
+    /**
+     * Remove the specified section from definitely.
+     */
+    public function removeDefinitely($id)
+    {
+        try {
+            //code...
+            $data = array();
+            $data['msg'] = 'deleted definitely succesfully';
+            $section = Section::withTrashed()->where(['id' => $id])->first();
+            $section->deleteImage();
+            $section->forceDelete();
             return response($data, 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 200);

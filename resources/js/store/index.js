@@ -106,9 +106,30 @@ const store = createStore({
                     console.log(err);
                 });
         },
+        async getTrachedSections() {
+            await axiosClient("/get-trached-sections")
+                .then((res) => {
+                    this.commit("setSections", res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
         async deleteSection({ dispatch }, id) {
             await axiosClient
                 .delete("/sections/" + id)
+                .then((res) => {
+                    this.commit("setSections", res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        async deleteSectionDefinitely({ dispatch }, id) {
+            const formData = new FormData();
+            formData.append("_method", "delete");
+            await axiosClient
+                .delete("/remove-section-definitely/" + id)
                 .then((res) => {
                     this.commit("setSections", res);
                 })

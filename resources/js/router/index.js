@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../components/admin/Home.vue";
-import Sections from "../components/pages/Sections.vue";
+import Sections from "../components/pages/Sections/Sections.vue";
+import ArchivedSections from "../components/pages/Sections/ArchivedSections.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
 import Layout from "../components/admin/Layout.vue";
 import Login from "../components/auth/Login.vue";
@@ -18,6 +19,11 @@ const routes = [
         children: [
             { path: "/admin/home", name: "Home", component: Home },
             { path: "/admin/sections", name: "Sections", component: Sections },
+            {
+                path: "/admin/archived-sections",
+                name: "ArchivedSections",
+                component: ArchivedSections,
+            },
             {
                 path: "/admin/dashboard",
                 name: "Dashboard",

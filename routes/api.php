@@ -26,8 +26,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
     Route::resource('sections', SectionController::class);
+    Route::get('get-trached-sections', [SectionController::class, 'getTrachedSections'], 'getTrachedSections');
     Route::post('update-section', [SectionController::class, 'updateSection']);
     Route::get('deleted-sections', [SectionController::class, 'deletedSections']);
+    Route::delete('/remove-section-definitely/{id}', [SectionController::class, 'removeDefinitely']);
+    Route::put('restore-section/{id}', [SectionController::class, 'restoreSection']);
 });
 
 Route::get('generate-excel-sections', [SectionController::class, 'generateExcelSections']);
