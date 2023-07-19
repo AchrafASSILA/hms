@@ -12,4 +12,13 @@
 .bg-primary-blue {
     background-color: #2196f3;
 }
+.center-svg {
+    height: 78vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center-svg svg {
+    width: 45%;
+}
 </style>

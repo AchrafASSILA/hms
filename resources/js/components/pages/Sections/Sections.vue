@@ -1,45 +1,46 @@
 <template>
-    <DefaultLayout
-        ><h3>
-            Sections / <span>{{ sections.length }}</span>
-        </h3>
-        <div class="card p-4">
-            <div class="text-right">
-                <button
-                    class="btn btn-primary mr-1"
-                    @click="initialize()"
-                    type="button"
-                    data-toggle="modal"
-                    title="add section"
-                    data-target="#addSection"
-                    style="color: white"
-                >
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-                <a
-                    class="btn btn-success p-0"
-                    type="button"
-                    href="/api/generate-excel-sections"
-                    title="export excel"
-                    style="color: white"
-                >
-                    <img
-                        style="width: 36px"
-                        src="/assets/img/icons/worksheet.png"
-                    />
-                </a>
-                <router-link
-                    :to="{ name: 'ArchivedSections' }"
-                    class="btn btn-danger ml-1"
-                    type="button"
-                    style="color: white"
-                    title="archived sections"
-                >
-                    <i class="fa-solid fa-trash"></i>
-                </router-link>
-            </div>
-        </div>
+    <DefaultLayout>
         <div v-if="loaded">
+            <h3>
+                Sections / <span>{{ sections.length }}</span>
+            </h3>
+            <div class="card p-4">
+                <div class="text-right">
+                    <button
+                        class="btn btn-primary mr-1"
+                        @click="initialize()"
+                        type="button"
+                        data-toggle="modal"
+                        title="add section"
+                        data-target="#addSection"
+                        style="color: white"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <a
+                        class="btn btn-success p-0"
+                        type="button"
+                        href="/api/generate-excel-sections"
+                        title="export excel"
+                        style="color: white"
+                    >
+                        <img
+                            style="width: 36px"
+                            src="/assets/img/icons/worksheet.png"
+                        />
+                    </a>
+                    <router-link
+                        :to="{ name: 'ArchivedSections' }"
+                        class="btn btn-danger ml-1"
+                        type="button"
+                        style="color: white"
+                        title="archived sections"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                    </router-link>
+                </div>
+            </div>
+
             <div
                 class="d-flex align-center gap-10 sections-wrap pt-2 pb-2"
                 v-if="sections.length > 0"

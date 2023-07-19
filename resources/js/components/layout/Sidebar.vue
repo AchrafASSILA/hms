@@ -40,6 +40,12 @@
                 <span>Sections</span></router-link
             >
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'Doctors' }">
+                <i class="fa fa-users mr-1" aria-hidden="true"></i>
+                <span>Doctors</span></router-link
+            >
+        </li>
 
         <!-- Heading -->
         <div class="sidebar-heading">Interface</div>
@@ -179,5 +185,8 @@ export default {};
 }
 .router-link-exact-active i {
     color: white !important;
+}
+.nav-link {
+    padding: 10px 15px !important;
 }
 </style>

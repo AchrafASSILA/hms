@@ -1,7 +1,7 @@
 <template>
     <!-- Topbar -->
     <nav
-        class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+        class="navbar navbar-expand navbar-light mb-4 bg-white topbar static-top shadow"
     >
         <!-- Sidebar Toggle (Topbar) -->
         <button
@@ -306,6 +306,8 @@
             </li>
         </ul>
     </nav>
+    <div v-if="false" class="nav-border mb-4 shadow"></div>
+
     <!-- End of Topbar -->
 </template>
 
@@ -344,4 +346,11 @@ function logout() {
 }
 </script>
 
-<style></style>
+<style scoped>
+.nav-border {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-bottom-right-radius: 50px;
+}
+</style>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../components/admin/Home.vue";
 import Sections from "../components/pages/Sections/Sections.vue";
+import Doctors from "../components/pages/Doctors/Doctors.vue";
 import ArchivedSections from "../components/pages/Sections/ArchivedSections.vue";
 import Dashboard from "../components/admin/Dashboard.vue";
 import Layout from "../components/admin/Layout.vue";
@@ -24,6 +25,7 @@ const routes = [
                 name: "ArchivedSections",
                 component: ArchivedSections,
             },
+            { path: "/admin/doctors", name: "Doctors", component: Doctors },
             {
                 path: "/admin/dashboard",
                 name: "Dashboard",

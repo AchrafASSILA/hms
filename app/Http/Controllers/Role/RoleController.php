@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Doctor;
+namespace App\Http\Controllers\Role;
 
 use App\Http\Controllers\Controller;
-use App\Models\Doctor\Doctor;
+use App\Models\Role\Role;
 use Illuminate\Http\Request;
 
-class DoctorController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class DoctorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Doctor $doctor)
+    public function show(Role $role)
     {
         //
     }
@@ -43,7 +43,7 @@ class DoctorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doctor $doctor)
+    public function edit(Role $role)
     {
         //
     }
@@ -51,7 +51,7 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -59,7 +59,7 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(Role $role)
     {
         //
     }
