@@ -41,10 +41,17 @@ import Loader from "../../ui/Loader.vue";
 let doctors = ref([]);
 let loaded = ref(false);
 
-onMounted(() => {
-    loaded.value = true;
+onMounted(async () => {
+    await store
+        .dispatch("getDoctors")
+        .then(() => {
+            // doctors.value = store.state.doctors;
+            loaded.value = true;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
-
 function initialize() {}
 </script>
 

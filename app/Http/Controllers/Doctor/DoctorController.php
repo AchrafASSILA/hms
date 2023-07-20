@@ -13,7 +13,28 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            //code...
+            $data = [];
+            $list = Doctor::all();
+            $doctors = [];
+            foreach ($list as $doctor) {
+                # code...
+                $doctors[] = [
+                    'name' => $doctor->user->name,
+                    'email' => $doctor->user->email,
+                    'phone' => $doctor->user->phone,
+                    'adress' => $doctor->user->adress,
+                    'role' => $doctor->user->role_->Label,
+                    'image' => $doctor->user->getImage(),
+                ];
+            }
+            $data['doctors'] = $doctors;
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 400);
+        }
     }
 
     /**

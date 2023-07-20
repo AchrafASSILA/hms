@@ -7,6 +7,7 @@ const store = createStore({
         name: sessionStorage.getItem("USERNAME"),
         token: sessionStorage.getItem("TOKEN"),
         sections: [],
+        doctors: [],
         errors: [],
     },
     getters: {},
@@ -106,6 +107,15 @@ const store = createStore({
                     console.log(err);
                 });
         },
+        async getDoctors() {
+            await axiosClient("/doctors")
+                .then((res) => {
+                    this.commit("setDoctors", res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
         async getTrachedSections() {
             await axiosClient("/get-trached-sections")
                 .then((res) => {
@@ -154,6 +164,9 @@ const store = createStore({
         },
         setSections: (state, res) => {
             state.sections = res.data.sections;
+        },
+        setDoctors: (state, res) => {
+            state.doctors = res.data.doctors;
         },
         removeUser: (state) => {
             state.user = null;

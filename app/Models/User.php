@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Doctor\Doctor;
 use App\Models\Role\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,10 +32,7 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function role()
-    {
-        $this->belongsTo(Role::class);
-    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -53,4 +51,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
+    }
+    public function role_()
+    {
+        return $this->belongsTo(Role::class, 'role');
+    }
+    public function getImage()
+    {
+        return 'user-default.png';
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Section\SectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('updateProfile', [AuthController::class, 'updateProfile'])->name('updateProfile');
     Route::resource('sections', SectionController::class);
+    Route::resource('doctors', DoctorController::class);
     Route::get('get-trached-sections', [SectionController::class, 'getTrachedSections'], 'getTrachedSections');
     Route::post('update-section', [SectionController::class, 'updateSection']);
     Route::get('deleted-sections', [SectionController::class, 'deletedSections']);
