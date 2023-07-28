@@ -10,7 +10,11 @@
             :to="{ name: 'Dashboard' }"
         >
             <div class="sidebar-brand-icon rotate-n-15">
-                <img style="width: 45px" src="/assets/img/healthy.png" alt="" />
+                <img
+                    style="width: 45px"
+                    src="http://127.0.0.1:8000/assets/img/healthy.png"
+                    alt=""
+                />
             </div>
             <div class="sidebar-brand-text mx-3" style="white-space: nowrap">
                 FLimen Health

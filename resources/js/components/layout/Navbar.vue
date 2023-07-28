@@ -169,7 +169,7 @@
                         <div class="dropdown-list-image mr-3">
                             <img
                                 class="rounded-circle"
-                                src="img/undraw_profile_1.svg"
+                                src="http://127.0.0.1:8000/img/undraw_profile_1.svg"
                                 alt="..."
                             />
                             <div class="status-indicator bg-success"></div>
@@ -188,7 +188,7 @@
                         <div class="dropdown-list-image mr-3">
                             <img
                                 class="rounded-circle"
-                                src="img/undraw_profile_2.svg"
+                                src="http://127.0.0.1:8000/img/undraw_profile_2.svg"
                                 alt="..."
                             />
                             <div class="status-indicator"></div>
@@ -205,7 +205,7 @@
                         <div class="dropdown-list-image mr-3">
                             <img
                                 class="rounded-circle"
-                                src="img/undraw_profile_3.svg"
+                                src="http://127.0.0.1:8000/img/undraw_profile_3.svg"
                                 alt="..."
                             />
                             <div class="status-indicator bg-warning"></div>
@@ -268,7 +268,7 @@
                     > -->
                     <img
                         class="img-profile rounded-circle"
-                        src="/assets/img/undraw_profile.svg"
+                        src="http://127.0.0.1:8000/assets/img/undraw_profile.svg"
                     />
                 </a>
                 <!-- Dropdown - User Information -->

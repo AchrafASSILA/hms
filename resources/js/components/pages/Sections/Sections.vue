@@ -26,7 +26,7 @@
                     >
                         <img
                             style="width: 36px"
-                            src="/assets/img/icons/worksheet.png"
+                            src="http://127.0.0.1:8000/assets/img/icons/worksheet.png"
                         />
                     </a>
                     <router-link
@@ -87,7 +87,10 @@
                 </div>
             </div>
             <div class="center-empty-img" v-else>
-                <img class="empty-img" src="/assets/img/icons/box.png" />
+                <img
+                    class="empty-img"
+                    src="http://127.0.0.1:8000/assets/img/icons/box.png"
+                />
             </div>
         </div>
         <div v-else>
