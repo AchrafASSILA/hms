@@ -135,6 +135,16 @@ const store = createStore({
                     console.log(err);
                 });
         },
+        async restaure({ dispatch }, id) {
+            await axiosClient
+                .put("/restore-section/" + id)
+                .then((res) => {
+                    this.commit("setSections", res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
         async deleteSectionDefinitely({ dispatch }, id) {
             const formData = new FormData();
             formData.append("_method", "delete");

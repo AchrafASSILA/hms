@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import DefaultLayout from "./DefaultLayout.vue";
+import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
 export default {
     components: { DefaultLayout },
     data() {

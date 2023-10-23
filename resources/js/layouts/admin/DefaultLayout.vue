@@ -30,10 +30,10 @@
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import store from "../../store";
-import Sidebar from "../layout/Sidebar.vue";
-import Footer from "../layout/Footer.vue";
-import Navbar from "../layout/Navbar.vue";
-import Loader from "../ui/Loader.vue";
+import Sidebar from "./Sidebar.vue";
+import Footer from "./Footer.vue";
+import Navbar from "./Navbar.vue";
+import Loader from "../../components/ui/Loader.vue";
 const router = useRouter();
 let user = null;
 const token = store.state.token;

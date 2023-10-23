@@ -11,7 +11,7 @@
 import { onMounted, ref } from "vue";
 import axiosClient from "../../axios";
 import store from "../../store";
-import DefaultLayout from "./DefaultLayout.vue";
+import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
 const sections = ref([]);
 onMounted(async () => {
     await store

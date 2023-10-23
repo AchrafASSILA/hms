@@ -90,10 +90,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axiosClient from "../../../axios";
-import store from "../../../store";
-import DefaultLayout from "../../admin/DefaultLayout.vue";
-import Loader from "../../ui/Loader.vue";
+import axiosClient from "../../axios";
+import store from "../../store";
+import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
+import Loader from "../../components/ui/Loader.vue";
+import router from "../../router";
+import { extractIdentifiers } from "vue/compiler-sfc";
 let sections = ref([]);
 let loaded = ref(false);
 
@@ -131,24 +133,13 @@ async function getTrachedSections() {
             console.log(err);
         });
 }
-async function returnToSections() {
+async function returnToSections(sec) {
     await store
-        .dispatch("saveSection", this.section)
+        .dispatch("restaure", sec.id)
         .then(() => {
-            Swal.fire("Success", "Section save with success", "");
-            closeBtn.value.click();
-            section.value.id = "";
-            section.value.label = "";
-            section.value.description = "";
-            section.value.active = false;
-            section.value.file = null;
-            errors.value = [];
-            getTrachedSections();
+            router.push({ name: "Sections" });
         })
-        .catch((err) => {
-            errors.value = [];
-            errors.value.push(err.response.data.msg);
-        });
+        .catch((err) => {});
 }
 
 async function deleteFromTrachedSection(id) {

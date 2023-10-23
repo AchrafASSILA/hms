@@ -23,7 +23,7 @@
                 class="card mt-2 p-1 d-flex align-center gap-10 sections-wrap pt-2 pb-2"
                 v-if="doctors.length == 0"
             >
-                <doctor-data-table></doctor-data-table>
+                <h3>doctors</h3>
             </div>
         </div>
         <div v-else>
@@ -33,11 +33,11 @@
 </template>
 
 <script setup>
-import DefaultLayout from "../../admin/DefaultLayout.vue";
+import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
 import DoctorDataTable from "./DoctorDataTable.vue";
 import { onMounted, ref } from "vue";
-import store from "../../../store";
-import Loader from "../../ui/Loader.vue";
+import store from "../../store";
+import Loader from "../../components/ui/Loader.vue";
 let doctors = ref([]);
 let loaded = ref(false);
 

@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../components/admin/Home.vue";
-import Sections from "../components/pages/Sections/Sections.vue";
-import Doctors from "../components/pages/Doctors/Doctors.vue";
-import ArchivedSections from "../components/pages/Sections/ArchivedSections.vue";
-import Dashboard from "../components/admin/Dashboard.vue";
-import Layout from "../components/admin/Layout.vue";
-import Login from "../components/auth/Login.vue";
-import Register from "../components/auth/Register.vue";
-import Notfound from "../components/Notfound.vue";
+import Home from "../pages/Home/Home.vue";
+import Sections from "../pages/Sections/Sections.vue";
+import Doctors from "../pages/Doctors/Doctors.vue";
+import ArchivedSections from "../pages/Sections/ArchivedSections.vue";
+import Dashboard from "../pages/Dashboard/Dashboard.vue";
+import Layout from "../layouts/admin/Layout.vue";
+import Login from "../pages/Auth/Login.vue";
+import Register from "../pages/Auth/Register.vue";
+import Notfound from "../components/ui/Notfound.vue";
 import store from "../store";
 
 const routes = [

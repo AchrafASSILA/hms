@@ -71,7 +71,7 @@ class SectionController extends Controller
             //code...
             $validation = Validator::make($request->all(), [
                 'label' => 'required|max:100|string|unique:sections',
-                'description' => 'required|max:100|string',
+                // 'description' => 'string',
 
             ]);
             if ($validation->messages()->all()) {
