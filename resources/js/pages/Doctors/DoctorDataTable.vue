@@ -91,6 +91,4 @@ export default {
 .actions {
     color: black;
 }
-.actions i {
-}
 </style>
