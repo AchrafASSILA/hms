@@ -431,12 +431,7 @@ function initialize() {
     object-fit: cover;
     width: 30%;
 }
-.center-empty-img {
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .section-col {
     width: 250px;
     margin-right: 25px;

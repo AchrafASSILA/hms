@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home/Home.vue";
 import Sections from "../pages/Sections/Sections.vue";
 import Doctors from "../pages/Doctors/Doctors.vue";
+import DoctorForm from "../pages/Doctors/DoctorForm.vue";
+import DoctorProfile from "../pages/Doctors/DoctorProfile.vue";
 import ArchivedSections from "../pages/Sections/ArchivedSections.vue";
 import Dashboard from "../pages/Dashboard/Dashboard.vue";
 import Layout from "../layouts/admin/Layout.vue";
@@ -26,6 +28,16 @@ const routes = [
                 component: ArchivedSections,
             },
             { path: "/admin/doctors", name: "Doctors", component: Doctors },
+            {
+                path: "/admin/doctors-form",
+                name: "DoctorsForm",
+                component: DoctorForm,
+            },
+            {
+                path: "/admin/doctor/:id",
+                name: "DoctorProfile",
+                component: DoctorProfile,
+            },
             {
                 path: "/admin/dashboard",
                 name: "Dashboard",

@@ -21,4 +21,18 @@
 .center-svg svg {
     width: 45%;
 }
+.center-empty-img {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.act {
+    background-color: #3f51b5;
+    border-radius: 50px;
+}
+.v-input--density-default {
+    width: 200px;
+    margin-left: auto;
+}
 </style>
