@@ -69,11 +69,11 @@ const router = createRouter({
     routes,
 });
 router.beforeEach((to, from, next) => {
-    // if (to.meta.requiresAuth && !sessionStorage.getItem("TOKEN")) {
-    if (to.meta.requiresAuth && !store.state.token) {
+    // if (to.meta.requiresAuth && !store.state.token) {
+    if (to.meta.requiresAuth && !localStorage.getItem("TOKEN")) {
         next({ name: "Login" });
     } else if (
-        store.state.token &&
+        localStorage.getItem("TOKEN") &&
         (to.name == "Login" || to.name == "Register")
     ) {
         next({ name: "Dashboard" });

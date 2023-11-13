@@ -11,9 +11,19 @@ class Doctor extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['User'];
+
     // user relation
     public function user()
     {
         return $this->belongsTo(User::class, 'User');
+    }
+
+    public function getImage()
+    {
+        $path = public_path("/assets/images/users/" . $this->user->image);
+        if (file_exists($path) && $this->user->image) {
+            return asset("/assets/images/users/" . $this->user->image);
+        }
+        return asset('/assets/images/users/default-doctor.png');
     }
 }

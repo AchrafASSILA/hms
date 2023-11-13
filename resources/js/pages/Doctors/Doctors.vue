@@ -2,7 +2,7 @@
     <DefaultLayout>
         <div v-if="loaded">
             <h3>
-                Doctors / <span>{{ doctors.length }}</span>
+                Doctors {{ user }} / <span>{{ doctors.length }}</span>
             </h3>
             <div class="card p-4">
                 <div class="text-right">

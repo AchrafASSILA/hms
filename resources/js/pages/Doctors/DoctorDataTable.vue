@@ -75,9 +75,7 @@ export default {
     watch: {},
 
     methods: {
-        viewDoctor(e, doctor) {
-            e.preventDefault();
-
+        viewDoctor(doctor) {
             console.log(doctor.id);
             router.push({
                 name: "DoctorProfile",

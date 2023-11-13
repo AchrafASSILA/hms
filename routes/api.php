@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Section\SectionController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('deleted-sections', [SectionController::class, 'deletedSections']);
     Route::delete('/remove-section-definitely/{id}', [SectionController::class, 'removeDefinitely']);
     Route::put('restore-section/{id}', [SectionController::class, 'restoreSection']);
+    Route::put('activate-user/{id}', [UserController::class, 'activateUser']);
+    Route::post('change-password/{id}', [UserController::class, 'changePassword']);
+    Route::put('desactivate-user/{id}', [UserController::class, 'desactivateUser']);
 });
 
 Route::get('generate-excel-sections', [SectionController::class, 'generateExcelSections']);

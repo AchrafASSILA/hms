@@ -24,7 +24,6 @@ const store = createStore({
             await axiosClient
                 .post("/register", formData)
                 .then((res) => {
-                    console.log("work", res);
                     this.commit("setUser", res);
                 })
                 .catch((err) => {
@@ -162,8 +161,8 @@ const store = createStore({
         setUser: (state, userData) => {
             state.user = userData.data.user;
             state.token = userData.data.token;
-            sessionStorage.setItem("TOKEN", state.token);
-            sessionStorage.setItem("USERNAME", state.user.name);
+            localStorage.setItem("TOKEN", state.token);
+            localStorage.setItem("USERNAME", state.user.name);
         },
         setErrors: (state, errData) => {
             state.errors.shift();
@@ -181,8 +180,8 @@ const store = createStore({
         removeUser: (state) => {
             state.user = null;
             state.token = null;
-            sessionStorage.removeItem("TOKEN");
-            sessionStorage.removeItem("USERNAME");
+            localStorage.removeItem("TOKEN");
+            localStorage.removeItem("USERNAME");
         },
     },
     modules: {},

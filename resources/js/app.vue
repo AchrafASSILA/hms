@@ -35,4 +35,22 @@
     width: 200px;
     margin-left: auto;
 }
+.color-black {
+    color: black;
+}
+.hms-flex-center-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.inner-img {
+    height: 100%;
+    width: 100%;
+}
 </style>

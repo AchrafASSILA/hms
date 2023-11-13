@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor\Doctor;
 use App\Models\User;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -97,19 +96,29 @@ class DoctorController extends Controller
      */
     public function show(int $id)
     {
-        $doctor = Doctor::where('id', $id)->first();
-        $data = [];
-        $data['doctor'] = [
-            'name' => $doctor->user->name
-        ];
-        return response($data, 200);
-        //
+        try {
+            //code...
+            $doctor = Doctor::where('id', $id)->first();
+            $data = [];
+            $data['doctor'] = [
+                'user_id' => $doctor->user->id,
+                'name' => $doctor->user->name,
+                'email' => $doctor->user->email,
+                'phone' => $doctor->user->phone,
+                'adress' => $doctor->user->adress,
+                'active' => $doctor->user->active,
+                'image' => $doctor->getImage(),
+            ];
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 403);
+        }
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Doctor $doctor)
+    public function edit(int $id)
     {
         //
     }
@@ -117,7 +126,7 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -125,7 +134,7 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Doctor $doctor)
+    public function destroy(int $id)
     {
         //
     }

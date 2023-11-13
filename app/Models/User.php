@@ -28,6 +28,7 @@ class User extends Authenticatable
         'auth_key',
         'adress',
         'phone',
+        'active',
         'image',
         'password',
     ];
@@ -62,6 +63,10 @@ class User extends Authenticatable
     }
     public function getImage()
     {
-        return 'user-default.png';
+        $path = public_path("/assets/images/users/" . $this->image);
+        if (file_exists($path) && $this->image) {
+            return asset("/assets/images/users/" . $this->image);
+        }
+        return asset('/assets/images/users/default-user.png');
     }
 }

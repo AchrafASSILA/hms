@@ -146,7 +146,7 @@ async function login() {
         .catch((err) => {
             errors.value = [];
 
-            errors.value.push(err.response.data.msg);
+            errors.value.push(err?.response?.data?.msg);
         });
 }
 </script>
