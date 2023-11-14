@@ -29,6 +29,7 @@ class DoctorController extends Controller
                     'phone' => $doctor->user->phone,
                     'adress' => $doctor->user->adress ? $doctor->user->adress : '---',
                     'role' => $doctor->user->role_->Label,
+                    'section' => $doctor->section && $doctor->section->Label ? $doctor->section->Label : '---',
                     'image' => $doctor->user->getImage(),
                 ];
             }
@@ -101,12 +102,14 @@ class DoctorController extends Controller
             $doctor = Doctor::where('id', $id)->first();
             $data = [];
             $data['doctor'] = [
+                'id' => $doctor->id,
                 'user_id' => $doctor->user->id,
                 'name' => $doctor->user->name,
                 'email' => $doctor->user->email,
                 'phone' => $doctor->user->phone,
                 'adress' => $doctor->user->adress,
                 'active' => $doctor->user->active,
+                'section' => ['id' => $doctor->section->id, 'label' => $doctor->section->Label],
                 'image' => $doctor->getImage(),
             ];
             return response($data, 200);
@@ -130,6 +133,30 @@ class DoctorController extends Controller
     {
         //
     }
+    /**
+     * add section to doctor.
+     */
+    public function addSection(Request $request, int $id)
+    {
+        //
+        try {
+
+            //code...
+            $validation = Validator::make($request->all(), [
+                'section' => 'required',
+            ]);
+            if ($validation->messages()->all()) {
+                return response(['msg' => $validation->messages()->all()], 403);
+            }
+            $doctor = Doctor::where('id', $id)->first();
+            $doctor->Section = $request->section;
+            $doctor->save();
+            return response(['msg' => "Doctor add to section with success", 'section' => ['id' => $doctor->section->id, 'label' => $doctor->section->Label]], 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 403);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -137,5 +164,15 @@ class DoctorController extends Controller
     public function destroy(int $id)
     {
         //
+        try {
+            $data = array();
+            $data['msg'] = 'deleted succesfully';
+            $doctor = Doctor::where(['id' => $id])->first();
+            $doctor->delete();
+            return response($data, 200);
+        } catch (\Exception $e) {
+            //throw $th;
+            return response(['msg' => $e->getMessage()], 403);
+        }
     }
 }

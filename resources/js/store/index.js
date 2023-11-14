@@ -182,6 +182,7 @@ const store = createStore({
             state.token = null;
             localStorage.removeItem("TOKEN");
             localStorage.removeItem("USERNAME");
+            localStorage.removeItem("isEnter");
         },
     },
     modules: {},

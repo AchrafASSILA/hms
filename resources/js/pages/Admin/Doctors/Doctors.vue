@@ -33,12 +33,12 @@
 </template>
 
 <script setup>
-import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
+import DefaultLayout from "../../../layouts/admin/DefaultLayout.vue";
 import DoctorDataTable from "./DoctorDataTable.vue";
 import { onMounted, ref } from "vue";
-import store from "../../store";
-import Loader from "../../components/ui/Loader.vue";
-import Emptybox from "../../components/ui/Emptybox.vue";
+import store from "../../../store";
+import Loader from "../../../components/ui/Loader.vue";
+import Emptybox from "../../../components/ui/Emptybox.vue";
 let doctors = ref([]);
 let loaded = ref(false);
 

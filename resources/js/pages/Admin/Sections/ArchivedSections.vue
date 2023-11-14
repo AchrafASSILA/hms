@@ -90,11 +90,11 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import axiosClient from "../../axios";
-import store from "../../store";
-import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
-import Loader from "../../components/ui/Loader.vue";
-import router from "../../router";
+import axiosClient from "../../../axios";
+import store from "../../../store";
+import DefaultLayout from "../../../layouts/admin/DefaultLayout.vue";
+import Loader from "../../../components/ui/Loader.vue";
+import router from "../../../router";
 import { extractIdentifiers } from "vue/compiler-sfc";
 let sections = ref([]);
 let loaded = ref(false);

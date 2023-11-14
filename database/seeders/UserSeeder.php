@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'achrafassila678@gmail.com',
             'password' => Hash::make('12345678'),
             'phone' => '0634328147',
+            'active' => true,
             'adress' => 'morocco,casablanca',
         ]);
     }

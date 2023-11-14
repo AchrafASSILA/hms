@@ -85,9 +85,9 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import axiosClient from "../../axios";
-import Errors from "../../components/ui/Errors.vue";
-import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
+import axiosClient from "../../../axios";
+import Errors from "../../../components/ui/Errors.vue";
+import DefaultLayout from "../../../layouts/admin/DefaultLayout.vue";
 const router = useRouter();
 let errors = ref(null);
 let doctor = ref({

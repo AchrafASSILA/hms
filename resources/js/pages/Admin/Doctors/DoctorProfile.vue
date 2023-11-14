@@ -49,7 +49,7 @@
                                 title="add password"
                                 data-target="#addPassword"
                             >
-                                Change passsword
+                                Change password
                             </button>
                             <button
                                 class="dropdown-item"
@@ -58,7 +58,7 @@
                                 title="add section"
                                 data-target="#addSection"
                             >
-                                Add sections
+                                Add section
                             </button>
                         </div>
                     </div>
@@ -105,148 +105,155 @@
                             :class="{ active: doctor.active }"
                         ></div>
                     </div>
-                    <div class="col-3 hr-right"></div>
+                    <div class="col-3 hr-right">
+                        <h6>Section affected :</h6>
+                        <span class="badge badge-pill badge-info">{{
+                            doctor.section.label
+                        }}</span>
+                    </div>
                     <div class="col-3"></div>
                 </div>
             </div>
-        </div>
-        <!-- Modal password -->
-        <div
-            class="modal fade"
-            id="addPassword"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="addSectionLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addSectionLabel">
-                            Change password
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="inputTitle">Password : </label>
-                            <input
-                                v-model="password"
-                                type="password"
-                                class="form-control"
-                                id="inputTitle"
-                                aria-describedby="TitleHelp"
-                                placeholder="Enter password"
-                            />
+            <!-- Modal password -->
+            <div
+                class="modal fade"
+                id="addPassword"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="addSectionLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addSectionLabel">
+                                Change password
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <label for="inputTitle"
-                                >Password confirmation:
-                            </label>
-                            <input
-                                v-model="passwordConfirmation"
-                                type="password"
-                                class="form-control"
-                                id="inputTitle"
-                                aria-describedby="TitleHelp"
-                                placeholder="Enter password confirmation"
-                            />
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputTitle">Password : </label>
+                                <input
+                                    v-model="password"
+                                    type="password"
+                                    class="form-control"
+                                    id="inputTitle"
+                                    aria-describedby="TitleHelp"
+                                    placeholder="Enter password"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTitle"
+                                    >Password confirmation:
+                                </label>
+                                <input
+                                    v-model="passwordConfirmation"
+                                    type="password"
+                                    class="form-control"
+                                    id="inputTitle"
+                                    aria-describedby="TitleHelp"
+                                    placeholder="Enter password confirmation"
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div v-if="errors" class="p-1">
-                        <Errors :errors="errors"></Errors>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                            ref="closeBtn"
-                        >
-                            Close
-                        </button>
+                        <div v-if="errors" class="p-1">
+                            <Errors :errors="errors"></Errors>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                                ref="closeBtn"
+                            >
+                                Close
+                            </button>
 
-                        <button
-                            type="button"
-                            @click="savePassword()"
-                            class="btn btn-primary"
-                        >
-                            Save password
-                        </button>
+                            <button
+                                type="button"
+                                @click="savePassword()"
+                                class="btn btn-primary"
+                            >
+                                Save password
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- sections password -->
-        <div
-            class="modal fade"
-            id="addSection"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="addSectionLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addSectionLabel">
-                            Add section
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="inputTitle">Sections : </label>
-                            <select
-                                v-if="true"
-                                class="form-control"
-                                multiple
-                                v-model="selectedSections"
+            <!-- sections password -->
+            <div
+                class="modal fade"
+                id="addSection"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="addSectionLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addSectionLabel">
+                                Add section
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
                             >
-                                <option
-                                    v-for="(item, index) in sections"
-                                    :key="index"
-                                    @click="addSection(item)"
-                                >
-                                    {{ item.label }}
-                                </option>
-                            </select>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div>
-                    <div v-if="errors" class="p-1">
-                        <Errors :errors="errors"></Errors>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-dismiss="modal"
-                            ref="closeBtn"
-                        >
-                            Close
-                        </button>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputTitle">Sections : </label>
+                                <select
+                                    v-model="doctor.section.id"
+                                    class="form-control"
+                                    placeholder="Sections"
+                                >
+                                    <option disabled value="">
+                                        Please select one
+                                    </option>
+                                    <option
+                                        v-for="(item, index) in sections"
+                                        :key="index"
+                                        :value="item.id"
+                                    >
+                                        {{ item.label }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div v-if="errors" class="p-1">
+                            <Errors :errors="errors"></Errors>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                                ref="closeBtn"
+                            >
+                                Close
+                            </button>
 
-                        <button
-                            type="button"
-                            @click="saveSections()"
-                            class="btn btn-primary"
-                        >
-                            Save sections
-                        </button>
+                            <button
+                                type="button"
+                                @click="saveSection()"
+                                class="btn btn-primary"
+                            >
+                                Save section
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -255,16 +262,15 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
-import Errors from "../../components/ui/Errors.vue";
-import axiosClient from "../../axios";
-import DefaultLayout from "../../layouts/admin/DefaultLayout.vue";
+import { onMounted, ref } from "vue";
+import Errors from "../../../components/ui/Errors.vue";
+import axiosClient from "../../../axios";
+import DefaultLayout from "../../../layouts/admin/DefaultLayout.vue";
 import { useRoute } from "vue-router";
 import Swal from "sweetalert2";
 
 let doctor = ref(null);
 let errors = ref([]);
-let selectedSections = ref([]);
 let sections = ref(null);
 let password = ref(null);
 let passwordConfirmation = ref(null);
@@ -282,7 +288,7 @@ onMounted(async () => {
             console.log(err);
         });
     await axiosClient
-        .get("sections/")
+        .get("active-sections/")
         .then((res) => {
             sections.value = res.data.sections;
         })
@@ -296,31 +302,34 @@ let activateDoctor = async () => {
         .then((res) => {
             Swal.fire("Success", "Doctor activate with success", "");
             doctor.value.active = true;
+            errors.value = [];
         })
         .catch((err) => {
             console.log(err);
         });
 };
-let addSection = (item) => {
-    console.log(item);
-    selectedSections.value.push(item);
-};
-let saveSections = async () => {
-    console.log(selectedSections.value);
-    // await axiosClient
-    //     .put("/activate-user/" + doctor.value.user_id)
-    //     .then((res) => {
-    //         Swal.fire("Success", "Doctor activate with success", "");
-    //         doctor.value.active = true;
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
+
+let saveSection = async () => {
+    const formData = new FormData();
+    formData.append("section", doctor.value.section.id);
+    await axiosClient
+        .post(`/add-section/${doctor.value.id}`, formData)
+        .then((res) => {
+            doctor.value.section = res.data.section;
+            Swal.fire("Success", "Doctor add to section with success", "");
+            closeBtn.value.click();
+            errors.value = [];
+        })
+        .catch((err) => {
+            errors.value = [];
+            errors.value.push(err.response.data.msg);
+        });
 };
 let disactivateDoctor = async () => {
     await axiosClient
         .put("/desactivate-user/" + doctor.value.user_id)
         .then((res) => {
+            errors.value = [];
             Swal.fire("Success", "Doctor disactivated with success", "");
             doctor.value.active = false;
         })
@@ -335,9 +344,9 @@ let savePassword = async () => {
     await axiosClient
         .post(`/change-password/${doctor.value.user_id}`, formData)
         .then((res) => {
-            Swal.fire("Success", "Doctor password change with success", "");
-            errors.value = [];
             closeBtn.value.click();
+            errors.value = [];
+            Swal.fire("Success", "Doctor password change with success", "");
         })
         .catch((err) => {
             errors.value = [];

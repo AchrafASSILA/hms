@@ -1,16 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../pages/Home/Home.vue";
-import Sections from "../pages/Sections/Sections.vue";
-import Doctors from "../pages/Doctors/Doctors.vue";
-import DoctorForm from "../pages/Doctors/DoctorForm.vue";
-import DoctorProfile from "../pages/Doctors/DoctorProfile.vue";
-import ArchivedSections from "../pages/Sections/ArchivedSections.vue";
-import Dashboard from "../pages/Dashboard/Dashboard.vue";
+import Home from "../pages/Admin/Home/Home.vue";
+import Sections from "../pages/Admin/Sections/Sections.vue";
+import Doctors from "../pages/Admin/Doctors/Doctors.vue";
+import DoctorForm from "../pages/Admin/Doctors/DoctorForm.vue";
+import DoctorProfile from "../pages/Admin/Doctors/DoctorProfile.vue";
+import ArchivedSections from "../pages/Admin/Sections/ArchivedSections.vue";
+import Dashboard from "../pages/Admin/Dashboard/Dashboard.vue";
 import Layout from "../layouts/admin/Layout.vue";
 import Login from "../pages/Auth/Login.vue";
 import Register from "../pages/Auth/Register.vue";
 import Notfound from "../components/ui/Notfound.vue";
-import store from "../store";
 
 const routes = [
     // admin
@@ -68,8 +67,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+// if (to.meta.requiresAuth && !store.state.token) {
 router.beforeEach((to, from, next) => {
-    // if (to.meta.requiresAuth && !store.state.token) {
     if (to.meta.requiresAuth && !localStorage.getItem("TOKEN")) {
         next({ name: "Login" });
     } else if (
@@ -81,4 +80,5 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
 export default router;

@@ -1,5 +1,5 @@
 <template>
-    <div id="wrapper">
+    <div id="wrapper" v-if="loadedSidebar">
         <!-- start side bar  -->
         <sidebar></sidebar>
         <!-- end side bar  -->
@@ -29,6 +29,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
+import Loadersvg from "../../components/ui/LoaderSvg.vue";
 import store from "../../store";
 import Sidebar from "./Sidebar.vue";
 import Footer from "./Footer.vue";
@@ -38,6 +39,8 @@ const router = useRouter();
 let user = null;
 const token = store.state.token;
 let loaded = ref(false);
+let loadedComps = ref(false);
+let loadedSidebar = localStorage.getItem("isEnter");
 
 async function getUser() {
     await store
@@ -52,6 +55,9 @@ async function getUser() {
 }
 onMounted(() => {
     getUser();
+    setTimeout(() => {
+        loadedComps.value = true;
+    }, 10000);
 });
 </script>
 

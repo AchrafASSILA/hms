@@ -32,6 +32,24 @@ class SectionController extends Controller
         $data['sections'] = $sections;
         return response($data, 200);
     }
+    /**
+     * Display a listing of the resource.
+     */
+    public function activeSections()
+    {
+        $sections = [];
+        $data = [];
+        foreach (Section::where('active', true)->get() as $section) {
+            # code...
+
+            $sections[] = [
+                'id' => $section->id,
+                'label' => $section->Label,
+            ];;
+        }
+        $data['sections'] = $sections;
+        return response($data, 200);
+    }
 
     /**
      * get trached sections.
@@ -214,8 +232,8 @@ class SectionController extends Controller
             $data = array();
             $data['msg'] = 'deleted succesfully';
             $section = Section::where(['id' => $id])->first();
-            // $section->deleteImage();
             $section->delete();
+            // $section->deleteImage();
             return response($data, 200);
         } catch (\Exception $e) {
             return response(['msg' => $e->getMessage()], 200);

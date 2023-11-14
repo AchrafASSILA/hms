@@ -25,20 +25,21 @@
         <!-- <hr class="sidebar-divider my-0" /> -->
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Dashboard' }">
-                <i class="fa fa-bar-chart mr-1"></i>
-                <span>Dashboard</span></router-link
-            >
-        </li>
-
-        <li class="nav-item">
+        <li v-if="false" class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Home' }">
                 <i class="fa fa-home mr-1"></i>
                 <span>Home</span></router-link
             >
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item" v-for="(item, index) in links" :key="index">
+            <router-link class="nav-link" :to="{ name: item.to }">
+                <i :class="item.icon_class"></i>
+                <span>{{ item.title }}</span></router-link
+            >
+        </li>
+
+        <!-- <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'Sections' }">
                 <i class="fa fa-stethoscope mr-1" aria-hidden="true"></i>
                 <span>Sections</span></router-link
@@ -49,7 +50,7 @@
                 <i class="fa fa-users mr-1" aria-hidden="true"></i>
                 <span>Doctors</span></router-link
             >
-        </li>
+        </li> -->
 
         <!-- Heading -->
         <div class="sidebar-heading">Interface</div>
@@ -179,8 +180,28 @@
     <!-- End of Sidebar -->
 </template>
 
-<script>
-export default {};
+<script async>
+import axiosClient from "../../axios";
+export default {
+    data() {
+        return {
+            links: [],
+        };
+    },
+
+    beforeCreate() {
+        localStorage.setItem("isEnter", false);
+        axiosClient
+            .get("/links")
+            .then((res) => {
+                this.links = res.data.links;
+                localStorage.setItem("isEnter", true);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },
+};
 </script>
 
 <style scoped>
